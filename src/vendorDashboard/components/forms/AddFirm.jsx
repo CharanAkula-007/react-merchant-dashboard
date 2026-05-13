@@ -38,7 +38,7 @@ const AddFirm = () => {
     try {
       const loginToken = localStorage.getItem("loginToken");
       if (!loginToken) {
-        setError("User not authenticated");
+        alert("User not authenticated");
         console.error("User not authenticated");
         return;
       }
@@ -89,8 +89,6 @@ const AddFirm = () => {
     } catch (error) {
       console.error("Error adding firm:", error);
     }
-
-    // Submit the form data to the server
   };
 
   return (

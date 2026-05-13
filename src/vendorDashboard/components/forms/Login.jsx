@@ -22,6 +22,21 @@ const Login = ({ showWelcomeHandler }) => {
         localStorage.setItem("loginToken", data.token);
         console.log("Login successful:", data);
         showWelcomeHandler();
+
+        const vendorId = data.vendorId;
+        const vendorResponse = await fetch(
+          `${API_URL}/vendor/single-vendor/${vendorId}`,
+        );
+        const vendorData = await vendorResponse.json();
+        if (vendorResponse.ok) {
+          const firmId = vendorData.vendorFirmId;
+          console.log("Firm ID:", firmId);
+          localStorage.setItem("firmId", firmId);
+          const vendorFirmName = vendorData.vendor.firm[0].firmName;
+          localStorage.setItem("vendorFirmName", vendorFirmName);
+          console.log("Vendor Firm Name:", vendorFirmName);
+          window.location.reload();
+        }
       } else {
         // Handle login error
         console.error("Login failed:", data);
